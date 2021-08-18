@@ -1,12 +1,15 @@
 FROM php:8.0
 
+ARG TARGETPLATFORM
+ENV TARGETPLATFORM=${TARGETPLATFORM:-linux/amd64}
+RUN echo "Building for ${TARGETPLATFORM}"
+
 EXPOSE 80
 
 RUN apt update \
     && apt install -y git zip \
     && apt-get purge -y --auto-remove -o APT:::AutoREmove::RecommendsImportant=false \
     && rm -rf /tmp/pear /root/.pearrc
-
 
 WORKDIR /var/www
 
