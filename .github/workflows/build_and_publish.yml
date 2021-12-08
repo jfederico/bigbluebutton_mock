@@ -3,14 +3,14 @@ name: Docker multiarch publish
 on: push
 
 env:
-  REPOSITORY: bigbluebutton_mock
-  DOCKERHUB_OWNER: andrewnicols
-  GH_OWNER: andrewnicols
+  REPOSITORY: "${{ secrets.DOCKERHUB_REPOSITORY }}:-bigbluebutton_mock"
+  DOCKERHUB_OWNER: "${{ secrets.DOCKERHUB_OWNER }}:-andrewnicols"
+  GH_OWNER: "${{ secrets.GH_OWNER }}:-andrewnicols"
 
 jobs:
   Build:
     # Completely avoid forks to try this workflow.
-    if: github.repository_owner == 'andrewnicols'
+    if: github.repository_owner == 'jfederico'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
