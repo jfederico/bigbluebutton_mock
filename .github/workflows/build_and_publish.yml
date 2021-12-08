@@ -3,7 +3,8 @@ name: Docker multiarch publish
 on: push
 
 env:
-  REPOSITORY: "${{ secrets.DOCKERHUB_REPOSITORY }}:-bigbluebutton_mock"
+  TEST: $(echo ${{ secrets.DOCKERHUB_REPOSITORY }}:-bigbluebutton_mock)
+  REPOSITORY: "${ ${{ secrets.DOCKERHUB_REPOSITORY }}:-bigbluebutton_mock }"
   DOCKERHUB_OWNER: "${{ secrets.DOCKERHUB_OWNER }}:-andrewnicols"
   GH_OWNER: "${{ secrets.GH_OWNER }}:-andrewnicols"
 
