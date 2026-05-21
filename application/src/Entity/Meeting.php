@@ -240,7 +240,7 @@ class Meeting
         $meetingInfo = (object) [
             'meetingName' => $this->meetingName,
             'meetingID' => $this->meetingID,
-            //'internalMeetingID' => $this->internalMeetingID,
+            'internalMeetingID' => sha1($this->meetingID),
             //'parentMeetingID' => $this->parentMeetingID,
             'createTime' => $this->createTime->format('U'),
             'createDate' => $this->createTime->format('D M d H:i:s e Y'),
@@ -286,6 +286,7 @@ class Meeting
     public function getMeetingSummary(): stdClass {
         return (object) [
             'meetingID' => $this->meetingID,
+            'internalMeetingID' => sha1($this->meetingID),
             'attendeePW' => $this->attendeePW,
             'moderatorPW' => $this->moderatorPW,
             'createDate' => $this->createTime->format('D M d H:i:s e Y'),
