@@ -1,4 +1,4 @@
-FROM php:8.0-apache-bullseye
+FROM php:8.1-apache-bookworm
 
 LABEL maintainer="Andrew Lyons <andrew@nicols.co.uk>" \
     org.opencontainers.image.source="https://github.com/andrewnicols/bigbluebutton_mock"
@@ -24,7 +24,7 @@ RUN symfony check:requirements
 COPY docker/entrypoint.sh /entrypoint.sh
 COPY application /var/www
 
-RUN composer install -n \
+RUN composer install -n --no-security-blocking \
     && rm -rf /root/.composer
 
 CMD ["symfony", "server:start", "--port=80", "--no-tls", "--allow-http"]
