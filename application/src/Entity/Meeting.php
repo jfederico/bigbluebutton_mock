@@ -283,7 +283,7 @@ class Meeting
         return $meetingInfo;
     }
 
-    public function getMeetingSummary(): stdClass {
+    public function getMeetingSummary(bool $isDuplicate = false): stdClass {
         return (object) [
             'meetingID' => $this->meetingID,
             'internalMeetingID' => sha1($this->meetingID),
@@ -295,6 +295,10 @@ class Meeting
             'voiceBridge' => sprintf("%04d", $this->voiceBridge),
             'hasBeenForciblyEnded' => $this->stringifyBool($this->hasBeenForciblyEnded),
             'hasUserJoined' => $this->stringifyBool($this->hasUserJoined),
+            'messageKey' => $isDuplicate ? 'duplicateWarning' : '',
+            'message' => $isDuplicate
+                ? 'This conference was already in existence and may currently be in progress.'
+                : '',
         ];
     }
 

@@ -103,6 +103,7 @@ class ApiController extends DataController implements CheckSumController
         // We check if the meeting does not already exists.
         $meetingID = $request->query->get('meetingID');
         $meeting = $this->findRoomConfiguration($serverID, $meetingID);
+        $isDuplicate = !empty($meeting);
 
         if (empty($meeting)) {
             $meeting = new Meeting();
@@ -134,7 +135,7 @@ class ApiController extends DataController implements CheckSumController
             $entityManager->flush();
         }
 
-        return new MeetingSummaryResponse($meeting);
+        return new MeetingSummaryResponse($meeting, $isDuplicate);
     }
 
     /**
